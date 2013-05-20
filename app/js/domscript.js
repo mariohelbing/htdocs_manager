@@ -89,4 +89,74 @@ function dom_init() {
 		},
 	}).disableSelection();	
 
+	// search
+	$('form.searchform')
+		.on('init', 			function(){
+		
+			var $form = $(this)
+			var $input = $form.find('input')			
+			var $searchableElms = $('li.project_folder')
+			var $aClear = $form.find('a.clear')
+		
+			$input.val('')
+			$form.data('searchableElms', $searchableElms)
+			$form.data('input', $input)
+			
+			$(document).keydown( function(e){ 
+			
+				if( e.which == 27 ){ 
+					$aClear.trigger('click')
+					$input.blur() 
+				}else{
+					$input.focus() 
+				}
+			
+			})
+		
+		})
+		.on('submit', 			function(){		// search tables, hide show trs
+		
+			var $form = $(this)
+			var $searchableElms = $form.data('searchableElms')
+			var $input = $form.data('input')
+			var value = jQuery.trim( $input.val() )
+			
+			console.log( 'search for: ' + value )
+			
+			// has searchvalue: hide uncontaining searchableElms
+			if(value){ 
+				$searchableElms
+					.removeClass('has_searchstring').addClass('hasnot_searchstring')	
+					.filter(function() {
+						return $(this).text().toUpperCase().indexOf(value.toUpperCase()) >= 0;        
+					})
+					.addClass('has_searchstring').removeClass('hasnot_searchstring')
+			}
+			// has no searchvalue: show all searchableElms
+			else{
+				$searchableElms.removeClass('has_searchstring hasnot_searchstring')
+			}
+			
+			return false;
+		
+		})
+		.on('click', 'a.clear', function(e){	// clear searchform
+		
+			var $form = $(e.delegateTarget)
+			var $input = $form.data('input')
+			
+			$input.val('').focus()
+			$form.trigger('submit')
+		
+		})
+		.on('keyup', 'input', 	function(e){	// triggers submit
+		
+			var $form = $(e.delegateTarget)
+			var $input = $(this)
+			
+			$form.trigger('submit')
+		
+		})
+		.trigger('init')	
+	
 }

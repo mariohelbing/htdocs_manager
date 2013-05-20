@@ -137,6 +137,10 @@
 	
 		<header id="header">
 			<h1>htdocs manager</h1>
+			<form class="searchform">
+				<input type="search" />
+				<a class="clear" href="#">x</a>
+			</form>
 		</header>
 		
 		<section id="content">

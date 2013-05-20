@@ -66,6 +66,14 @@ h2 {
 	color: grey;
 }
 
+form.searchform {
+	float: right;
+	
+	input:focus {
+		background-color: yellow;
+	}
+}
+
 ul.project_folders {
 	padding: 15px 10px;
 	border: 1px solid rgba(0, 0, 0, 0.25);
@@ -79,6 +87,10 @@ li.project_folder {
     max-height: 1.2em;
     overflow: hidden;
 
+	&.hasnot_searchstring {
+		opacity: 0.2;
+	}
+	
 	.left {
 		width: 20%;
 		float: left;
