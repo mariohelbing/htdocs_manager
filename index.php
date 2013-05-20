@@ -5,49 +5,109 @@
 	
 	// -------------------------
 	
-	define(CONTENT_PATH,  'content/');
-	define(LOCALHOST_URL, 'http://localhost:8080/');
+	define(APP_CONTENT_PATH,  'content/');
+	define(HTDOCS_URL, 'http://localhost:8080/');
+	define(HTDOCS_PATH, '../');
+	
+	// -------------------------
+	
+	$all_projects = array_map('basename', glob(HTDOCS_PATH."*", GLOB_ONLYDIR) );
 	
 	// -------------------------
 	
 	// read index files in array
-	if( file_exists(CONTENT_PATH.'project_folders') ){ 
-		$project_folders = file(CONTENT_PATH.'project_folders');
+	if( file_exists(APP_CONTENT_PATH.'project_folders') ){ 
+		$project_folders = file(APP_CONTENT_PATH.'project_folders');
 		array_walk($project_folders, create_function('&$val', '$val = trim($val);')); 
 		$project_folders = array_filter($project_folders, 'strlen'); 
 	}
-	if( file_exists(CONTENT_PATH.'aside_project_folders') ){ 
-		$aside_project_folders = file(CONTENT_PATH.'aside_project_folders');
+	if( file_exists(APP_CONTENT_PATH.'aside_project_folders') ){ 
+		$aside_project_folders = file(APP_CONTENT_PATH.'aside_project_folders');
 		array_walk($aside_project_folders, create_function('&$val', '$val = trim($val);')); 
 		$aside_project_folders = array_filter($aside_project_folders, 'strlen'); 
 	}
-	if( file_exists(CONTENT_PATH.'stared_project_folders') ){ 
-		$stared_project_folders = file(CONTENT_PATH.'stared_project_folders');
+	if( file_exists(APP_CONTENT_PATH.'stared_project_folders') ){ 
+		$stared_project_folders = file(APP_CONTENT_PATH.'stared_project_folders');
 		array_walk($stared_project_folders, create_function('&$val', '$val = trim($val);'));
 		$stared_project_folders = array_filter($stared_project_folders, 'strlen'); 		
 	}
 	
-	// check for new projects
-	$all_projects = glob("../*", GLOB_ONLYDIR);	
-	/*
+	// check for new folders, append to $project_folders[]
 	if( is_array($all_projects) ) { foreach( $all_projects as $project ) {
 	
-		$project = basename($project);
-	
-		echo $project;
 		if( !in_array($project, $project_folders) && 
+			!in_array($project, $aside_project_folders) &&
 			!in_array($project, $stared_project_folders) 
-			!in_array($project, $aside_project_folders) 
 		){
 		
-			echo ' --------------';
+			echo 'append to $project_folders[]: ' . $project.' <br>';			
+			$project_folders[] = $project;
+		
+		}else{
+		
+			// echo $project .'<br>';
 		
 		} 
 	
 	} }
 	
-	die;
-	*/
+	// check for deleted folders, delete from $*_project_folder[]
+	if( is_array($project_folders) ) { foreach( $project_folders as $project ) {
+	
+		if( !in_array(trim($project), $all_projects) ){
+
+			echo 'remove from $project_folders[]: ' . $project.' <br>';			
+
+			if(($key = array_search($project, $project_folders)) !== false) {
+				unset($project_folders[$key]);
+			}			
+		
+		}else{
+		
+			// echo $project .'<br>';
+		
+		} 
+	
+	} }
+	if( is_array($aside_project_folders) ) { foreach( $aside_project_folders as $project ) {
+	
+		if( !in_array(trim($project), $all_projects) ){
+
+			echo 'remove from $aside_project_folders[]: ' . $project.' <br>';			
+
+			if(($key = array_search($project, $aside_project_folders)) !== false) {
+				unset($aside_project_folders[$key]);
+			}			
+		
+		}else{
+		
+			// echo $project .'<br>';
+		
+		} 
+	
+	} }
+	if( is_array($stared_project_folders) ) { foreach( $stared_project_folders as $project ) {
+	
+		if( !in_array(trim($project), $all_projects) ){
+
+			echo 'remove from $stared_project_folders[]: ' . $project.' <br>';			
+
+			if(($key = array_search($project, $stared_project_folders)) !== false) {
+				unset($stared_project_folders[$key]);
+			}			
+		
+		}else{
+		
+			// echo $project .'<br>';
+		
+		} 
+	
+	} }
+	
+	//print_r2( $all_projects );
+	//print_r2( $aside_project_folders );
+	//print_r2( $stared_project_folders );
+	//die;
 	
 	// chdir('../'); $project_folders = glob("../*", GLOB_ONLYDIR);
 
@@ -78,6 +138,7 @@
 		<header id="header">
 			<h1>htdocs manager</h1>
 		</header>
+		
 		<section id="content">
 			<?php 
 			
@@ -86,7 +147,7 @@
 			if( is_array($stared_project_folders) ){ 
 				foreach( $stared_project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.LOCALHOST_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '</li>';
 				}
 			} 			
@@ -97,7 +158,7 @@
 			if( is_array($aside_project_folders) ){ 
 				foreach( $aside_project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.LOCALHOST_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '</li>';
 				}
 			} 			
@@ -108,7 +169,7 @@
 			if( is_array($project_folders) ){ 
 				foreach( $project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.LOCALHOST_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '</li>';
 				} 
 			}
@@ -116,6 +177,7 @@
 
 			?>
 		</section>
+		
 		<footer id="footer">			
 		</footer>	
 	
