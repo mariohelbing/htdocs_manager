@@ -147,7 +147,14 @@
 			if( is_array($stared_project_folders) ){ 
 				foreach( $stared_project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<div class="left">';
+					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	</div>';
+					echo '	<div class="right">';
+					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					}
+					echo '</div>';
 					echo '</li>';
 				}
 			} 			
@@ -158,7 +165,14 @@
 			if( is_array($aside_project_folders) ){ 
 				foreach( $aside_project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<div class="left">';
+					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	</div>';
+					echo '	<div class="right">';
+					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					}
+					echo '</div>';
 					echo '</li>';
 				}
 			} 			
@@ -169,7 +183,14 @@
 			if( is_array($project_folders) ){ 
 				foreach( $project_folders as $project_folder ) { 
 					echo '<li class="project_folder" data-folder_name="'.$project_folder.'">';
-					echo '	<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	<div class="left">';
+					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
+					echo '	</div>';
+					echo '	<div class="right">';
+					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					}
+					echo '</div>';
 					echo '</li>';
 				} 
 			}

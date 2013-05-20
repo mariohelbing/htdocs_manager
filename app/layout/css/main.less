@@ -14,10 +14,20 @@ body {
 }
 
 #header {
-	
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    height: 3em;
+    left: 0;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;	
 }
 
 #content {
+	margin-top: 2em;
 }
 
 #footer {
@@ -64,8 +74,27 @@ ul.project_folders {
 
 li.project_folder {
 
-	line-height: 1.2em;
+	.clearfix;
+    line-height: 1.2em;
+    max-height: 1.2em;
+    overflow: hidden;
 
+	.left {
+		width: 20%;
+		float: left;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.right {
+		width: 80%;
+		float: left;
+		color: grey;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
 	a {
 		text-decoration: none;
 		color: blue;

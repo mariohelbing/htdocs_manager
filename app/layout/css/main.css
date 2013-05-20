@@ -4,6 +4,19 @@ body { font-family:Helvetica, Arial, sans-serif; }
   max-width:100%;
   padding:10px;
 }
+#header {
+  background-color:#ffffff;
+  box-shadow:0 2px 7px rgba(0,0,0,0.15);
+  border-bottom:1px solid rgba(0,0,0,0.15);
+  height:3em;
+  left:0;
+  padding:10px;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:10;
+}
+#content { margin-top:2em; }
 h1 {
   display:inline-block;
   font-weight:bold;
@@ -36,7 +49,32 @@ ul.project_folders {
   border:1px solid rgba(0,0,0,0.25);
   min-height:50px;
 }
-li.project_folder { line-height:1.2em; }
+li.project_folder {
+  zoom:1;
+  line-height:1.2em;
+  max-height:1.2em;
+  overflow:hidden;
+}
+li.project_folder:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+li.project_folder .left {
+  width:20%;
+  float:left;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+li.project_folder .right {
+  width:80%;
+  float:left;
+  color:grey;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 li.project_folder a {
   text-decoration:none;
   color:blue;
