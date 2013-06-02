@@ -10,14 +10,13 @@ body {
 #wrapper {
 	margin: 0 auto;
 	max-width: 100%;
-	padding: 10px;
 }
 
 #header {
     background-color: #FFFFFF;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    height: 3em;
+    height: 2.7em;
     left: 0;
     padding: 10px;
     position: fixed;
@@ -27,7 +26,8 @@ body {
 }
 
 #content {
-	margin-top: 2em;
+	margin-top: 4em;
+	padding: 10px;
 }
 
 #footer {
@@ -40,6 +40,7 @@ h1 {
     display: inline-block;
     font-weight: bold;
     position: relative;
+	float: left;
 	
 	&:after {
 		background-color: #000000;
@@ -54,18 +55,18 @@ h1 {
 	}
 }
 
-h2 {
-    background-color: #FFFFFF;
-    display: inline-block;
-    font-size: 0.8em;
-    left: 7px;
-    margin-top: 2em;
-    padding: 0 4px;
-    position: relative;
-    top: 0.6em;
-	color: grey;
+nav.header_navi {
+	float: left;
+	margin-left: 50px;
+	
+	a {
+		color: grey;
+	}		
+	a:hover {
+		color: #000;
+	}	
+	
 }
-
 form.searchform {
 	float: right;
 	
@@ -74,50 +75,84 @@ form.searchform {
 	}
 }
 
-ul.project_folders {
-	padding: 15px 10px;
-	border: 1px solid rgba(0, 0, 0, 0.25);
-	min-height: 50px;
+a {
+	text-decoration: none;
+	color: blue;
+}
+a:hover {
+	color: red;
 }
 
-li.project_folder {
+.sorthandle {
+	cursor: move;
+}
 
-	.clearfix;
-    line-height: 1.2em;
-    max-height: 1.2em;
-    overflow: hidden;
 
-	&.hasnot_searchstring {
-		opacity: 0.2;
-	}
-	
-	.left {
-		width: 20%;
-		float: left;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.right {
-		width: 80%;
-		float: left;
+div.group {
+	position: relative;
+	margin-bottom: 1em;
+	background-color: #FFFFFF;
+}
+	.group_title {
+		background-color: #FFFFFF;
 		color: grey;
+		display: inline-block;
+		font-size: 0.8em;
+		left: 7px;
+		padding: 0 4px;
+		position: absolute;
+		top: -0.5em;
+		z-index: 1;
+	}
+	ul.project_folders {
+		.transition(min-height 0.2s ease-in-out);
+		padding: 15px 10px;
+		border: 1px solid rgba(0, 0, 0, 0.25);
+		min-height: 50px;
+		
+		position: relative;
+	}
+	li.project_folder {
+
+		.transition(max-height 0.2s ease-in-out);
+		.clearfix;
+		
+		line-height: 1.2em;
+		max-height: 1.2em;
 		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+
+		&.hasnot_searchstring {
+			opacity: 0.2;
+			max-height: 0;
+		}
+		
+		.left {
+			width: 20%;
+			float: left;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.right {
+			width: 80%;
+			float: left;
+			color: grey;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
 	}
+
 	
-	a {
-		text-decoration: none;
-		color: blue;
-	}
-	a:hover {
-		color: red;
-	}
-
-}
-
+	
 // mixins
+.transition(@string: all 0.5s ease-in-out) {
+	-webkit-transition: @string;
+	   -moz-transition: @string;
+		 -o-transition: @string;
+			transition: @string;	
+}
 .box-shadow (@string: 1px 1px 5px rgba(0, 0, 0, 0.25)) {
 	-webkit-box-shadow:	@string;
 	-moz-box-shadow:	@string;

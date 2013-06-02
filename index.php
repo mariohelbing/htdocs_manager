@@ -130,13 +130,16 @@
 	<script type="text/javascript">document.documentElement.className += " js";</script>
 </head>
 
-<body>
+<body id="app">
 
  	<!-- Content goes here -->
 	<div id="wrapper">
 	
 		<header id="header">
 			<h1>htdocs manager</h1>
+			<nav class="header_navi">
+				<a data-action="add_group" href="#">Add Group</a>
+			</nav>
 			<form class="searchform">
 				<input type="search" />
 				<a class="clear" href="#">x</a>
@@ -146,7 +149,8 @@
 		<section id="content">
 			<?php 
 			
-			echo '<h2>Favoriten</h2>';
+			echo '<div class="group">';
+			echo '<h2 class="group_title sorthandle">Favoriten</h2>';
 			echo '<ul class="project_folders" data-kind="stared_project_folders">';
 			if( is_array($stared_project_folders) ){ 
 				foreach( $stared_project_folders as $project_folder ) { 
@@ -155,16 +159,18 @@
 					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '	</div>';
 					echo '	<div class="right">';
-					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
-						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					if(file_exists(HTDOCS_PATH.$project_folder.'/README.md')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/README.md') );
 					}
 					echo '</div>';
 					echo '</li>';
 				}
 			} 			
 			echo '</ul>';			
+			echo '</div>';			
 			
-			echo '<h2>Aside</h2>';
+			echo '<div class="group">';
+			echo '<h2 class="group_title sorthandle">Aside</h2>';
 			echo '<ul class="project_folders" data-kind="aside_project_folders">';
 			if( is_array($aside_project_folders) ){ 
 				foreach( $aside_project_folders as $project_folder ) { 
@@ -173,16 +179,18 @@
 					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '	</div>';
 					echo '	<div class="right">';
-					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
-						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					if(file_exists(HTDOCS_PATH.$project_folder.'/README.md')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/README.md') );
 					}
 					echo '</div>';
 					echo '</li>';
 				}
 			} 			
 			echo '</ul>';
+			echo '</div>';		
 
-			echo '<h2>Folders</h2>';
+			echo '<div class="group">';
+			echo '<h2 class="group_title sorthandle">Folders</h2>';
 			echo '<ul class="project_folders" data-kind="project_folders">';
 			if( is_array($project_folders) ){ 
 				foreach( $project_folders as $project_folder ) { 
@@ -191,14 +199,15 @@
 					echo '		<a class="folder_name" href="'.HTDOCS_URL.$project_folder.'">'.$project_folder.'</a>';
 					echo '	</div>';
 					echo '	<div class="right">';
-					if(file_exists(HTDOCS_PATH.$project_folder.'/_todo.txt')){
-						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/_todo.txt') );
+					if(file_exists(HTDOCS_PATH.$project_folder.'/README.md')){
+						echo implode("\n", file(HTDOCS_PATH.$project_folder.'/README.md') );
 					}
 					echo '</div>';
 					echo '</li>';
 				} 
 			}
 			echo '</ul>';
+			echo '</div>';		
 
 			?>
 		</section>

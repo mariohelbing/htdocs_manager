@@ -1,7 +1,31 @@
 function dom_init() {
 
-	//$('.project_folder').draggable()
+	var $app = $('#app')
+	var $content = $('#content')
+	var group_markup = '<div class="group"><h2 class="group_title sorthandle">New Group</h2><ul class="project_folders" data-kind=""></ul></div>'
+
+	// app
+	$app 
+		.bind('add_group', function(){
+			
+			$(group_markup)
+				.prependTo($content)
+		
+		})
 	
+	// content
+	$content.sortable({
+		handle: ".sorthandle",
+		//forcePlaceholderSize: true,
+		axis: "y",
+		stop: function(){
+			
+			
+		
+		},
+	}).disableSelection();
+	
+	// project_folders + list
 	$("ul.project_folders").sortable({
 		connectWith: ".project_folders",
 		stop: function(){
@@ -89,7 +113,22 @@ function dom_init() {
 		},
 	}).disableSelection();	
 
-	// search
+	// header navi
+	$('.header_navi')
+		.on('click', 'a', function(){
+		
+			var $a = $(this)
+			var action = $a.data('action')
+			
+			switch( action ){			
+				case 'add_group':
+					$app.trigger('add_group')
+					break;			
+			}
+		
+		})
+	
+	// searchform
 	$('form.searchform')
 		.on('init', 			function(){
 		
@@ -102,6 +141,7 @@ function dom_init() {
 			$form.data('searchableElms', $searchableElms)
 			$form.data('input', $input)
 			
+			// blur on escape
 			$(document).keydown( function(e){ 
 			
 				if( e.which == 27 ){ 
@@ -147,6 +187,8 @@ function dom_init() {
 			
 			$input.val('').focus()
 			$form.trigger('submit')
+			
+			return false;
 		
 		})
 		.on('keyup', 'input', 	function(e){	// triggers submit

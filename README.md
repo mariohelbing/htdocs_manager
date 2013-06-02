@@ -1,1 +1,1 @@
-123
+Projektverwaltung im htdocs-Verzeichnis.
